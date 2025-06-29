@@ -1,5 +1,6 @@
 import React from "react";
 import logo from "./logo.png";
+import UOL from "./UOL.png"
 import "./App.css";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -59,12 +60,6 @@ class App extends React.Component {
           });
       })
       .catch((err) => console.log(err.message));
-
-    // axios
-    //   .get(
-    //     `https://api.openweathermap.org/data/2.5/weather?q=${this.state.cityInput}&appid=db2b631c79deae1500162a294faec7dc`
-    //   )
-    //   .then((response) => console.log(response));
   };
 
   handleSubmit2 = (e) => {
@@ -82,23 +77,14 @@ class App extends React.Component {
       )
       .then((response) => {
         const { data: weatherData } = response;
-        console.log(weatherData.list);
-
         for (const el of weatherData.list) {
           this.state.output.push(el.dt_txt);
         }
-        console.log(this.state.output);
         this.setState({
           output: weatherData.list,
         });
       })
       .catch((err) => console.log(err.message));
-
-    // axios
-    //   .get(
-    //     `https://api.openweathermap.org/data/2.5/weather?q=${this.state.cityInput}&appid=db2b631c79deae1500162a294faec7dc`
-    //   )
-    //   .then((response) => console.log(response));
   };
 
   renderTable() {
@@ -138,35 +124,36 @@ class App extends React.Component {
     return (
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          {/* <input
-            type="text"
-            value={this.state.input}
-            placeholder="Please enter country"
-            onChange={(e) => this.handleChange(e)}
-          /> */}
+          <div className="container text-center">
+            <div className="row justify-content-center">
+              <div className="col-12 col-md-8 col-lg-6">
+                <img src={UOL} className="App-logo img-fluid mb-3" alt="logo" />
+                <p>
+                  Welcome to the weather app made by Kit Ian Chow from UOL!<br /> Type in a country to view its weather forecast! ☁️⛈️
+                </p>
+                {this.state.img !== "" ? (
+                  <img src={this.state.img} alt="Icon of the current weather" className="img-fluid mb-3" />
+                ) : (
+                  <div></div>
+                )}
+                <p></p>
 
-          {/* <input type="submit" value="submit" onClick={this.handleSubmit} /> */}
-          {this.state.img !== "" ? (
-            <img src={this.state.img} alt="Icon of the current weather" />
-          ) : (
-            <div></div>
-          )}
-          <p></p>
-          <div>
-            <input
-              type="text"
-              value={this.state.input}
-              placeholder="Please enter country"
-              onChange={(e) => this.handleChange(e)}
-            />
-            <br />
-            <input type="submit" value="submit" onClick={this.handleSubmit2} />
-            {/* <input type="submit" value="submit" onClick={this.handleOnClick} /> */}
-            <table>{this.renderTable()}</table>
+                <input
+                  type="text"
+                  className="form-control mb-2"
+                  value={this.state.input}
+                  placeholder="Please enter country"
+                  onChange={(e) => this.handleChange(e)}
+                />
+                <br />
+                <input type="submit" className="btn btn-primary mb-4" value="submit" onClick={this.handleSubmit2} />
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-12">
+                {this.renderTable()}
+              </div>
+            </div>
           </div>
         </header>
       </div>
